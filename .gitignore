@@ -1,0 +1,23 @@
+# Compiled output files
+*.hex
+*.elf
+*.o
+*.d
+*.bin
+*.eep
+*.lst
+*.map
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE config folders and build directories
+.vscode/
+build/
+.history/
+.ino.cpp
+.settings/
+.project
+.cproject
