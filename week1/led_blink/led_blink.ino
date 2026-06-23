@@ -1,3 +1,13 @@
+/**
+ * @file led_blink.ino
+ * @author Heli Gupta
+ * @date 2026-07-05
+ * @brief Potentiometer-controlled LED blink with serial logging.
+ *        This sketch reads an analog value from a potentiometer to adjust
+ *        the blink rate of an LED connected to digital pin 13, and prints
+ *        the current blink count and delay to the Serial Monitor.
+ */
+
 int blinkCount = 0;
 const int potPin = A0;
 
@@ -7,7 +17,6 @@ void setup() {
 }
 void loop() {
   int potValue = analogRead(potPin);
-  // Potentiometer value is 0-1023, map it to a reasonable delay range (100ms to 2000ms)
   int delayTime = map(potValue, 0, 1023, 100, 2000);
   
   digitalWrite(13, HIGH);
