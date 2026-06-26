@@ -1,6 +1,7 @@
 /**
  * @file digital_piano.ino
- * @brief Digital Piano - Step 1: Basic 4-Key Piano.
+ * @brief Digital Piano - Step 2: Add Chord Substitute (Sol).
+ *        If two or more buttons are pressed together: play Sol (392Hz).
  *        Buttons on pins 2, 3, 4, and 5 play Do, Re, Mi, Fa.
  *        Passive buzzer on pin 9.
  *        Course Coursework: Week 2, Assignment Q15
@@ -17,6 +18,7 @@ const int NOTE_DO = 262; // Hz
 const int NOTE_RE = 294; // Hz
 const int NOTE_MI = 330; // Hz
 const int NOTE_FA = 349; // Hz
+const int NOTE_SOL = 392; // Hz (Chord substitute)
 
 void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
@@ -34,7 +36,17 @@ void loop() {
   bool miPressed = (digitalRead(BTN_MI) == HIGH);
   bool faPressed = (digitalRead(BTN_FA) == HIGH);
 
-  if (doPressed) {
+  // Count how many buttons are pressed simultaneously
+  int pressedCount = (doPressed ? 1 : 0) + 
+                     (rePressed ? 1 : 0) + 
+                     (miPressed ? 1 : 0) + 
+                     (faPressed ? 1 : 0);
+
+  if (pressedCount >= 2) {
+    // Chord substitute
+    tone(BUZZER_PIN, NOTE_SOL);
+    Serial.println("Playing: Sol (392Hz) [CHORD]");
+  } else if (doPressed) {
     tone(BUZZER_PIN, NOTE_DO);
     Serial.println("Playing: Do (262Hz)");
   } else if (rePressed) {
